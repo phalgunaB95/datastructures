@@ -10,6 +10,7 @@ type PriorityQ[K constraints.Ordered] interface {
 	Pop() error
 	Top() (K, error)
 	IsEmpty() bool
+	Len() int
 	heapify(i int)
 }
 
@@ -59,7 +60,9 @@ func (pq *pqHeap[K]) heapify(i int) {
 		pq.heapify(smallest)
 	}
 }
-
+func (pq *pqHeap[K]) Len() int {
+	return len(*pq)
+}
 func NewPriorityQ[K constraints.Ordered]() PriorityQ[K] {
 	tmpSlice := make([]K, 0)
 	tmpHeap := pqHeap[K](tmpSlice)
